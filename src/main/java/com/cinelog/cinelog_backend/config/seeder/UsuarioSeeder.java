@@ -25,7 +25,7 @@ public class UsuarioSeeder {
                             .nombre("Usuario Demo")
                             .nombreUsuario("cinelogdemo")
                             .email("demo@cinelog.com")
-                            .contraseña(passwordEncoder.encode("Demo1234"))
+                            .contrasena(passwordEncoder.encode("Demo1234"))
                             .activo(true)
                             .imagenPerfil("https://i.pravatar.cc/100?img=12")
                             .build(),
@@ -33,7 +33,7 @@ public class UsuarioSeeder {
                             .nombre("Ana Cinéfila")
                             .nombreUsuario("anacinema")
                             .email("ana@cinelog.com")
-                            .contraseña(passwordEncoder.encode("Ana1234"))
+                            .contrasena(passwordEncoder.encode("Ana1234"))
                             .activo(true)
                             .imagenPerfil("https://i.pravatar.cc/100?img=5")
                             .build(),
@@ -41,7 +41,7 @@ public class UsuarioSeeder {
                             .nombre("Carlos Movie")
                             .nombreUsuario("carlosmovies")
                             .email("carlos@cinelog.com")
-                            .contraseña(passwordEncoder.encode("Carlos1234"))
+                            .contrasena(passwordEncoder.encode("Carlos1234"))
                             .activo(true)
                             .imagenPerfil("https://i.pravatar.cc/100?img=20")
                             .build()

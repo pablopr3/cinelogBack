@@ -29,13 +29,13 @@ public class AuthController {
             @Valid @RequestBody OlvideContrasenaRequestDTO dto
     ) {
         authService.solicitarRecuperacion(dto);
-        return ResponseEntity.ok("Se ha enviado un enlace para restablecer tu contraseña.");
+        return ResponseEntity.ok("Se ha enviado un enlace para restablecer tu contrasena.");
     }
 
     @PostMapping("/restablecer")
-    public ResponseEntity<String> restablecerContraseña(
+    public ResponseEntity<String> restablecercontrasena(
             @Valid @RequestBody RestablecerContrasenaRequestDTO dto
     ) {
-        return authService.restablecerContraseña(dto);
+        return authService.restablecercontrasena(dto);
     }
 }

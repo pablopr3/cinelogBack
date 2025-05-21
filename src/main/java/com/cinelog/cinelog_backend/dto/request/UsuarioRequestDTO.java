@@ -19,7 +19,7 @@ public class UsuarioRequestDTO {
     private String email;
 
     @NotBlank
-    private String contraseña;
+    private String contrasena;
 
     private String imagenPerfil;
 }

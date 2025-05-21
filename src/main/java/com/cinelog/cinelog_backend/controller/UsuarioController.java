@@ -54,14 +54,14 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.actualizarDatos(usuario, dto));
     }
 
-    @PutMapping("/cambiar-contraseña")
+    @PutMapping("/cambiar-contrasena")
     @SecurityRequirement(name = "BearerAuth")
-    public ResponseEntity<String> cambiarContraseña(
+    public ResponseEntity<String> cambiarcontrasena(
             @RequestBody @Valid UsuarioPasswordUpdateRequestDTO dto
     ) {
         Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        usuarioService.cambiarContraseña(usuario, dto);
-        return ResponseEntity.ok("Contraseña actualizada correctamente.");
+        usuarioService.cambiarcontrasena(usuario, dto);
+        return ResponseEntity.ok("contrasena actualizada correctamente.");
     }
 
     @DeleteMapping("/eliminar")

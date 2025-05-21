@@ -49,7 +49,7 @@ public class EmailService {
     }
 
     public void enviarCorreoRecuperacion(String to, String nombre, String token) {
-        String asunto = "Restablece tu contraseña en CineLog";
+        String asunto = "Restablece tu contrasena en CineLog";
 
         String enlaceRecuperacion = "http://localhost:5173/restablecer?token=" + token;
         System.out.println("🔗 Enlace de recuperación generado: " + enlaceRecuperacion);
@@ -58,15 +58,15 @@ public class EmailService {
         String cuerpo = """
         <html>
             <body style="background-color:#0A1828; color:#FFFFFF; font-family:sans-serif; padding:20px;">
-                <h2 style="color:#BFA181;">Restablecer contraseña</h2>
+                <h2 style="color:#BFA181;">Restablecer contrasena</h2>
                 <p>Hola <strong>%s</strong>,</p>
-                <p>Recibimos una solicitud para restablecer tu contraseña.</p>
+                <p>Recibimos una solicitud para restablecer tu contrasena.</p>
                 <p>Haz clic en el siguiente botón (válido por 30 minutos):</p>
                 <p style="margin: 20px 0;">
                     <a href="%s"
                        style="padding: 12px 20px; background-color: #EF4444; color: white;
                               text-decoration: none; border-radius: 6px; font-weight: bold;">
-                        Restablecer contraseña
+                        Restablecer contrasena
                     </a>
                 </p>
                 <p>Si tú no hiciste esta solicitud, puedes ignorar este mensaje.</p>

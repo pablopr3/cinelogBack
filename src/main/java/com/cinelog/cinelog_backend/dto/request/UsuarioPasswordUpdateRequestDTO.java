@@ -11,8 +11,8 @@ import lombok.*;
 public class UsuarioPasswordUpdateRequestDTO {
 
     @NotBlank
-    private String contraseñaActual;
+    private String contrasenaActual;
 
     @NotBlank
-    private String nuevaContraseña;
+    private String nuevacontrasena;
 }

@@ -25,11 +25,11 @@ public class UsuarioRegisterRequestDTO {
     private String email;
 
     @NotBlank
-    @Size(min = 8, message = "La contraseña debe tener al menos 8 caracteres")
+    @Size(min = 8, message = "La contrasena debe tener al menos 8 caracteres")
     @Pattern(regexp = ".*[A-Z].*", message = "Debe contener al menos una mayúscula")
     @Pattern(regexp = ".*\\d.*", message = "Debe contener al menos un número")
-    private String contraseña;
+    private String contrasena;
 
     @NotBlank
-    private String repetirContraseña;
+    private String repetircontrasena;
 }

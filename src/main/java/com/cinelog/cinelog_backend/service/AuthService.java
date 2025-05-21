@@ -40,8 +40,8 @@ public class AuthService {
             throw new RuntimeException("La cuenta no ha sido activada.");
         }
 
-        if (!passwordEncoder.matches(request.getContraseña(), usuario.getContraseña())) {
-            throw new RuntimeException("Contraseña incorrecta");
+        if (!passwordEncoder.matches(request.getcontrasena(), usuario.getcontrasena())) {
+            throw new RuntimeException("contrasena incorrecta");
         }
 
         String token = jwtUtil.generateToken(usuario.getEmail());
@@ -68,7 +68,7 @@ public class AuthService {
         emailService.enviarCorreoRecuperacion(usuario.getEmail(), usuario.getNombre(), token);
     }
 
-    public ResponseEntity<String> restablecerContraseña(RestablecerContrasenaRequestDTO dto) {
+    public ResponseEntity<String> restablecercontrasena(RestablecerContrasenaRequestDTO dto) {
         Usuario usuario = usuarioRepository.findByTokenRecuperacion(dto.getToken())
                 .orElseThrow(() -> new RuntimeException("El enlace de recuperación es inválido o ya fue usado."));
 
@@ -76,24 +76,24 @@ public class AuthService {
             return ResponseEntity.badRequest().body("El enlace ha caducado. Solicita uno nuevo.");
         }
 
-        String contraseña = dto.getNuevaContraseña();
+        String contrasena = dto.getNuevacontrasena();
 
-        if (contraseña.length() < 8) {
-            return ResponseEntity.badRequest().body("La contraseña debe tener al menos 8 caracteres.");
+        if (contrasena.length() < 8) {
+            return ResponseEntity.badRequest().body("La contrasena debe tener al menos 8 caracteres.");
         }
-        if (!contraseña.matches(".*[A-Z].*")) {
-            return ResponseEntity.badRequest().body("La contraseña debe contener al menos una letra mayúscula.");
+        if (!contrasena.matches(".*[A-Z].*")) {
+            return ResponseEntity.badRequest().body("La contrasena debe contener al menos una letra mayúscula.");
         }
-        if (!contraseña.matches(".*\\d.*")) {
-            return ResponseEntity.badRequest().body("La contraseña debe contener al menos un número.");
+        if (!contrasena.matches(".*\\d.*")) {
+            return ResponseEntity.badRequest().body("La contrasena debe contener al menos un número.");
         }
 
-        String contraseñaHasheada = passwordEncoder.encode(contraseña);
-        usuario.setContraseña(contraseñaHasheada);
+        String contrasenaHasheada = passwordEncoder.encode(contrasena);
+        usuario.setcontrasena(contrasenaHasheada);
         usuario.setTokenRecuperacion(null);
         usuario.setTokenExpira(null);
         usuarioRepository.save(usuario);
 
-        return ResponseEntity.ok("Contraseña restablecida correctamente.");
+        return ResponseEntity.ok("contrasena restablecida correctamente.");
     }
 }

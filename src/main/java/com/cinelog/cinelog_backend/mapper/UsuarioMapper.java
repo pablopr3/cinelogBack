@@ -13,7 +13,7 @@ public class UsuarioMapper {
         return Usuario.builder()
                 .nombre(dto.getNombre())
                 .email(dto.getEmail())
-                .contraseña(dto.getContraseña())
+                .contrasena(dto.getcontrasena())
                 .imagenPerfil(dto.getImagenPerfil())
                 .build();
     }
@@ -28,12 +28,12 @@ public class UsuarioMapper {
                 .build();
     }
 
-    public static Usuario fromRegisterDTO(UsuarioRegisterRequestDTO dto, String contraseñaHasheada, String tokenActivacion) {
+    public static Usuario fromRegisterDTO(UsuarioRegisterRequestDTO dto, String contrasenaHasheada, String tokenActivacion) {
         return Usuario.builder()
                 .nombre(dto.getNombre())
                 .nombreUsuario(dto.getNombreUsuario())
                 .email(dto.getEmail())
-                .contraseña(contraseñaHasheada)
+                .contrasena(contrasenaHasheada)
                 .activo(false)
                 .tokenActivacion(tokenActivacion)
                 .build();

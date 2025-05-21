@@ -65,16 +65,16 @@ public class UsuarioService {
             throw new RuntimeException("El nombre de usuario ya está en uso.");
         }
 
-        if (!dto.getContraseña().equals(dto.getRepetirContraseña())) {
-            throw new RuntimeException("Las contraseñas no coinciden.");
+        if (!dto.getcontrasena().equals(dto.getRepetircontrasena())) {
+            throw new RuntimeException("Las contrasenas no coinciden.");
         }
 
-        String contraseñaHasheada = passwordEncoder.encode(dto.getContraseña());
+        String contrasenaHasheada = passwordEncoder.encode(dto.getcontrasena());
         String token = UUID.randomUUID().toString();
         System.out.println("🔐 Token generado: " + token);
 
 
-        Usuario usuario = UsuarioMapper.fromRegisterDTO(dto, contraseñaHasheada, token);
+        Usuario usuario = UsuarioMapper.fromRegisterDTO(dto, contrasenaHasheada, token);
         usuarioRepository.save(usuario);
 
         // ✅ Aquí se envía el correo correctamente
@@ -135,15 +135,15 @@ public class UsuarioService {
         return UsuarioMapper.toResponseDTO(actual);
     }
 
-    public void cambiarContraseña(Usuario usuario, UsuarioPasswordUpdateRequestDTO dto) {
-        // Validar contraseña actual
-        if (!passwordEncoder.matches(dto.getContraseñaActual(), usuario.getContraseña())) {
-            throw new RuntimeException("La contraseña actual no es válida.");
+    public void cambiarcontrasena(Usuario usuario, UsuarioPasswordUpdateRequestDTO dto) {
+        // Validar contrasena actual
+        if (!passwordEncoder.matches(dto.getcontrasenaActual(), usuario.getcontrasena())) {
+            throw new RuntimeException("La contrasena actual no es válida.");
         }
 
-        // Cambiar la contraseña
-        String nuevaHash = passwordEncoder.encode(dto.getNuevaContraseña());
-        usuario.setContraseña(nuevaHash);
+        // Cambiar la contrasena
+        String nuevaHash = passwordEncoder.encode(dto.getNuevacontrasena());
+        usuario.setcontrasena(nuevaHash);
         usuarioRepository.save(usuario);
     }
 

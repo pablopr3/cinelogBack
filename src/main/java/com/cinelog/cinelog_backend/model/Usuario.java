@@ -26,7 +26,7 @@ public class Usuario {
     @Column(unique = true, nullable = false)
     private String email;
 
-    private String contraseña;
+    private String contrasena;
 
     private String imagenPerfil;
 
@@ -42,12 +42,12 @@ public class Usuario {
 
 
 
-    // Token generado cuando el usuario solicita recuperar su contraseña.
+    // Token generado cuando el usuario solicita recuperar su contrasena.
     // Se manda por correo para permitirle acceder a una página donde la puede cambiar.
     private String tokenRecuperacion;
 
     // Fecha y hora de expiración del token de recuperación.
-    // Se valida cuando el usuario intenta cambiar su contraseña.
+    // Se valida cuando el usuario intenta cambiar su contrasena.
     // Si esta fecha ya pasó, el token ya no es válido.
     @Temporal(TemporalType.TIMESTAMP)
     private Date tokenExpira;

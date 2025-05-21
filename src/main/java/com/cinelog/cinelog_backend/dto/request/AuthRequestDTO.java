@@ -16,5 +16,5 @@ public class AuthRequestDTO {
     private String email;
 
     @NotBlank
-    private String contraseña;
+    private String contrasena;
 }

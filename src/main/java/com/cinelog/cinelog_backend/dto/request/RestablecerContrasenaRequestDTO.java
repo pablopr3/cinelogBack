@@ -15,6 +15,6 @@ public class RestablecerContrasenaRequestDTO {
     private String token;
 
     @NotBlank
-    @Size(min = 8, message = "La contraseña debe tener al menos 8 caracteres")
-    private String nuevaContraseña;
+    @Size(min = 8, message = "La contrasena debe tener al menos 8 caracteres")
+    private String nuevacontrasena;
 }
