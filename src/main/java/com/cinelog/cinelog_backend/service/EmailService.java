@@ -15,14 +15,16 @@ public class EmailService {
     @Value("${spring.mail.from}")
     private String from;
 
+    @Value("${frontend.base-url}") // ✅ Usa el valor de application.properties
+    private String baseUrl;
+
     public EmailService(JavaMailSender mailSender) {
         this.mailSender = mailSender;
     }
 
     public void enviarCorreoActivacion(String to, String nombre, String token) {
         String asunto = "Activa tu cuenta en CineLog";
-
-        String enlaceActivacion = "http://localhost:5173/activar?token=" + token;
+        String enlaceActivacion = baseUrl + "/activar?token=" + token;
 
         String cuerpo = """
             <html>
@@ -50,10 +52,7 @@ public class EmailService {
 
     public void enviarCorreoRecuperacion(String to, String nombre, String token) {
         String asunto = "Restablece tu contrasena en CineLog";
-
-        String enlaceRecuperacion = "http://localhost:5173/restablecer?token=" + token;
-        System.out.println("🔗 Enlace de recuperación generado: " + enlaceRecuperacion);
-
+        String enlaceRecuperacion = baseUrl + "/restablecer?token=" + token;
 
         String cuerpo = """
         <html>
@@ -76,19 +75,8 @@ public class EmailService {
         </html>
         """.formatted(nombre, enlaceRecuperacion);
 
-        try {
-            MimeMessage mensaje = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(mensaje, true, "UTF-8");
-            helper.setTo(to);
-            helper.setSubject(asunto);
-            helper.setFrom(from);
-            helper.setText(cuerpo, true); // HTML
-            mailSender.send(mensaje);
-        } catch (MessagingException e) {
-            throw new RuntimeException("No se pudo enviar el correo de recuperación: " + e.getMessage());
-        }
+        enviarCorreoHTML(to, asunto, cuerpo);
     }
-
 
     private void enviarCorreoHTML(String to, String asunto, String cuerpo) {
         try {
@@ -97,7 +85,7 @@ public class EmailService {
             helper.setTo(to);
             helper.setSubject(asunto);
             helper.setFrom(from);
-            helper.setText(cuerpo, true); // HTML
+            helper.setText(cuerpo, true);
             mailSender.send(mensaje);
         } catch (MessagingException e) {
             throw new RuntimeException("No se pudo enviar el correo: " + e.getMessage());
