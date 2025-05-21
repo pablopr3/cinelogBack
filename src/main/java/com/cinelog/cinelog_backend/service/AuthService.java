@@ -1,7 +1,7 @@
 package com.cinelog.cinelog_backend.service;
 
 import com.cinelog.cinelog_backend.dto.request.AuthRequestDTO;
-import com.cinelog.cinelog_backend.dto.request.OlvideContraseñaRequestDTO;
+import com.cinelog.cinelog_backend.dto.request.OlvideContrasenaRequestDTO;
 import com.cinelog.cinelog_backend.dto.request.RestablecerContrasenaRequestDTO;
 import com.cinelog.cinelog_backend.dto.response.AuthResponseDTO;
 import com.cinelog.cinelog_backend.model.Usuario;
@@ -54,7 +54,7 @@ public class AuthService {
                 .build();
     }
 
-    public void solicitarRecuperacion(OlvideContraseñaRequestDTO dto) {
+    public void solicitarRecuperacion(OlvideContrasenaRequestDTO dto) {
         Usuario usuario = usuarioRepository.findByEmail(dto.getEmail())
                 .orElseThrow(() -> new RuntimeException("No existe una cuenta con ese correo."));
 

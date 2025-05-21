@@ -1,7 +1,7 @@
 package com.cinelog.cinelog_backend.controller;
 
 import com.cinelog.cinelog_backend.dto.request.AuthRequestDTO;
-import com.cinelog.cinelog_backend.dto.request.OlvideContraseñaRequestDTO;
+import com.cinelog.cinelog_backend.dto.request.OlvideContrasenaRequestDTO;
 import com.cinelog.cinelog_backend.dto.request.RestablecerContrasenaRequestDTO;
 import com.cinelog.cinelog_backend.dto.response.AuthResponseDTO;
 import com.cinelog.cinelog_backend.service.AuthService;
@@ -26,7 +26,7 @@ public class AuthController {
 
     @PostMapping("/olvide")
     public ResponseEntity<String> solicitarRecuperacion(
-            @Valid @RequestBody OlvideContraseñaRequestDTO dto
+            @Valid @RequestBody OlvideContrasenaRequestDTO dto
     ) {
         authService.solicitarRecuperacion(dto);
         return ResponseEntity.ok("Se ha enviado un enlace para restablecer tu contraseña.");

@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class OlvideContraseñaRequestDTO {
+public class OlvideContrasenaRequestDTO {
 
     @Email
     @NotBlank
