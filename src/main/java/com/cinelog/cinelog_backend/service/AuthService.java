@@ -33,18 +33,27 @@ public class AuthService {
     }
 
     public AuthResponseDTO login(AuthRequestDTO request) {
+        System.out.println("🔐 Intentando login para: " + request.getEmail());
+
         Usuario usuario = usuarioRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new RuntimeException("Email no registrado"));
+                .orElseThrow(() -> {
+                    System.out.println("❌ Email no encontrado en la base de datos.");
+                    return new RuntimeException("Email no registrado");
+                });
 
         if (!usuario.isActivo()) {
+            System.out.println("⚠️ Usuario no activado: " + usuario.getEmail());
             throw new RuntimeException("La cuenta no ha sido activada.");
         }
 
         if (!passwordEncoder.matches(request.getContrasena(), usuario.getContrasena())) {
+            System.out.println("❌ Contraseña incorrecta para: " + usuario.getEmail());
             throw new RuntimeException("contrasena incorrecta");
         }
 
         String token = jwtUtil.generateToken(usuario.getEmail());
+
+        System.out.println("✅ Login exitoso. Token generado para: " + usuario.getEmail());
 
         return AuthResponseDTO.builder()
                 .token(token)
@@ -55,6 +64,8 @@ public class AuthService {
     }
 
     public void solicitarRecuperacion(OlvideContrasenaRequestDTO dto) {
+        System.out.println("📨 Solicitud de recuperación para: " + dto.getEmail());
+
         Usuario usuario = usuarioRepository.findByEmail(dto.getEmail())
                 .orElseThrow(() -> new RuntimeException("No existe una cuenta con ese correo."));
 
@@ -66,13 +77,18 @@ public class AuthService {
         usuarioRepository.save(usuario);
 
         emailService.enviarCorreoRecuperacion(usuario.getEmail(), usuario.getNombre(), token);
+
+        System.out.println("📬 Enlace de recuperación enviado a: " + usuario.getEmail());
     }
 
     public ResponseEntity<String> restablecercontrasena(RestablecerContrasenaRequestDTO dto) {
+        System.out.println("🔄 Intentando restablecer contraseña con token: " + dto.getToken());
+
         Usuario usuario = usuarioRepository.findByTokenRecuperacion(dto.getToken())
                 .orElseThrow(() -> new RuntimeException("El enlace de recuperación es inválido o ya fue usado."));
 
         if (usuario.getTokenExpira() == null || usuario.getTokenExpira().before(new Date())) {
+            System.out.println("⏰ Token expirado para usuario: " + usuario.getEmail());
             return ResponseEntity.badRequest().body("El enlace ha caducado. Solicita uno nuevo.");
         }
 
@@ -93,6 +109,8 @@ public class AuthService {
         usuario.setTokenRecuperacion(null);
         usuario.setTokenExpira(null);
         usuarioRepository.save(usuario);
+
+        System.out.println("✅ Contraseña restablecida para: " + usuario.getEmail());
 
         return ResponseEntity.ok("contrasena restablecida correctamente.");
     }

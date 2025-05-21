@@ -35,8 +35,10 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                                "/",
-                                "/api/auth/**",
+                                "/", // raíz
+                                "/api/auth/login",                // ⚠️ explícito
+                                "/api/auth/olvide",
+                                "/api/auth/restablecer",
                                 "/api/usuarios/registro",
                                 "/api/usuarios/activar",
                                 "/api/peliculas/buscar",
@@ -57,11 +59,11 @@ public class SecurityConfig {
         config.setAllowedOrigins(List.of("https://windship.shop"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
-        config.setAllowCredentials(true); // permite cookies/autenticación si usás token
+        config.setExposedHeaders(List.of("Authorization")); // 🔑 si necesitas leer el token
+        config.setAllowCredentials(true); // debe ir con dominio explícito
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
         return source;
     }
-
 }
