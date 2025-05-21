@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RestablecerContraseñaRequestDTO {
+public class RestablecerContrasenaRequestDTO {
 
     @NotBlank
     private String token;

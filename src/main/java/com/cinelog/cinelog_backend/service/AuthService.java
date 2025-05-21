@@ -2,7 +2,7 @@ package com.cinelog.cinelog_backend.service;
 
 import com.cinelog.cinelog_backend.dto.request.AuthRequestDTO;
 import com.cinelog.cinelog_backend.dto.request.OlvideContraseñaRequestDTO;
-import com.cinelog.cinelog_backend.dto.request.RestablecerContraseñaRequestDTO;
+import com.cinelog.cinelog_backend.dto.request.RestablecerContrasenaRequestDTO;
 import com.cinelog.cinelog_backend.dto.response.AuthResponseDTO;
 import com.cinelog.cinelog_backend.model.Usuario;
 import com.cinelog.cinelog_backend.repository.UsuarioRepository;
@@ -68,7 +68,7 @@ public class AuthService {
         emailService.enviarCorreoRecuperacion(usuario.getEmail(), usuario.getNombre(), token);
     }
 
-    public ResponseEntity<String> restablecerContraseña(RestablecerContraseñaRequestDTO dto) {
+    public ResponseEntity<String> restablecerContraseña(RestablecerContrasenaRequestDTO dto) {
         Usuario usuario = usuarioRepository.findByTokenRecuperacion(dto.getToken())
                 .orElseThrow(() -> new RuntimeException("El enlace de recuperación es inválido o ya fue usado."));
 

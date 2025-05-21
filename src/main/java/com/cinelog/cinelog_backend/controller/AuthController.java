@@ -2,7 +2,7 @@ package com.cinelog.cinelog_backend.controller;
 
 import com.cinelog.cinelog_backend.dto.request.AuthRequestDTO;
 import com.cinelog.cinelog_backend.dto.request.OlvideContraseñaRequestDTO;
-import com.cinelog.cinelog_backend.dto.request.RestablecerContraseñaRequestDTO;
+import com.cinelog.cinelog_backend.dto.request.RestablecerContrasenaRequestDTO;
 import com.cinelog.cinelog_backend.dto.response.AuthResponseDTO;
 import com.cinelog.cinelog_backend.service.AuthService;
 import jakarta.validation.Valid;
@@ -34,7 +34,7 @@ public class AuthController {
 
     @PostMapping("/restablecer")
     public ResponseEntity<String> restablecerContraseña(
-            @Valid @RequestBody RestablecerContraseñaRequestDTO dto
+            @Valid @RequestBody RestablecerContrasenaRequestDTO dto
     ) {
         return authService.restablecerContraseña(dto);
     }
