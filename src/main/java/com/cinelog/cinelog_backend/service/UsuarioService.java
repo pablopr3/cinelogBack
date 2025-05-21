@@ -65,11 +65,11 @@ public class UsuarioService {
             throw new RuntimeException("El nombre de usuario ya está en uso.");
         }
 
-        if (!dto.getcontrasena().equals(dto.getRepetircontrasena())) {
+        if (!dto.getContrasena().equals(dto.getRepetircontrasena())) {
             throw new RuntimeException("Las contrasenas no coinciden.");
         }
 
-        String contrasenaHasheada = passwordEncoder.encode(dto.getcontrasena());
+        String contrasenaHasheada = passwordEncoder.encode(dto.getContrasena());
         String token = UUID.randomUUID().toString();
         System.out.println("🔐 Token generado: " + token);
 
@@ -137,13 +137,13 @@ public class UsuarioService {
 
     public void cambiarcontrasena(Usuario usuario, UsuarioPasswordUpdateRequestDTO dto) {
         // Validar contrasena actual
-        if (!passwordEncoder.matches(dto.getcontrasenaActual(), usuario.getcontrasena())) {
+        if (!passwordEncoder.matches(dto.getContrasenaActual(), usuario.getContrasena())) {
             throw new RuntimeException("La contrasena actual no es válida.");
         }
 
         // Cambiar la contrasena
         String nuevaHash = passwordEncoder.encode(dto.getNuevacontrasena());
-        usuario.setcontrasena(nuevaHash);
+        usuario.setContrasena(nuevaHash);
         usuarioRepository.save(usuario);
     }
 

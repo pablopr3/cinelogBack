@@ -13,7 +13,7 @@ public class UsuarioMapper {
         return Usuario.builder()
                 .nombre(dto.getNombre())
                 .email(dto.getEmail())
-                .contrasena(dto.getcontrasena())
+                .contrasena(dto.getContrasena())
                 .imagenPerfil(dto.getImagenPerfil())
                 .build();
     }

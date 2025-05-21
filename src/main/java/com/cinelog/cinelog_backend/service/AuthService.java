@@ -40,7 +40,7 @@ public class AuthService {
             throw new RuntimeException("La cuenta no ha sido activada.");
         }
 
-        if (!passwordEncoder.matches(request.getcontrasena(), usuario.getcontrasena())) {
+        if (!passwordEncoder.matches(request.getContrasena(), usuario.getContrasena())) {
             throw new RuntimeException("contrasena incorrecta");
         }
 
@@ -89,7 +89,7 @@ public class AuthService {
         }
 
         String contrasenaHasheada = passwordEncoder.encode(contrasena);
-        usuario.setcontrasena(contrasenaHasheada);
+        usuario.setContrasena(contrasenaHasheada);
         usuario.setTokenRecuperacion(null);
         usuario.setTokenExpira(null);
         usuarioRepository.save(usuario);
