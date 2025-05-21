@@ -1,0 +1,12 @@
+package com.cinelog.cinelog_backend.dto.response;
+
+import lombok.*;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class UsuarioRegisterResponseDTO {
+    private String mensaje;
+}
