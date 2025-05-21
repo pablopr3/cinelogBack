@@ -29,12 +29,14 @@ public class Pelicula {
     private String sinopsis;
 
     private float puntuacionTMDB;
-    @ManyToMany
+    // PELICULA.JAVA
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "pelicula_genero",
             joinColumns = @JoinColumn(name = "pelicula_id"),
             inverseJoinColumns = @JoinColumn(name = "genero_id")
     )
     private List<Genero> generos;
+
 
 }
