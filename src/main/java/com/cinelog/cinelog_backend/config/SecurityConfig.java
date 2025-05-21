@@ -3,6 +3,7 @@ package com.cinelog.cinelog_backend.config;
 import com.cinelog.cinelog_backend.security.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -34,18 +35,14 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                "/", // raíz
-                                "/api/auth/login",                // ⚠️ explícito
-                                "/api/auth/olvide",
-                                "/api/auth/restablecer",
-                                "/api/usuarios/registro",
-                                "/api/usuarios/activar",
-                                "/api/peliculas/buscar",
-                                "/api/generos",
-                                "/swagger-ui/**",
-                                "/v3/api-docs/**"
-                        ).permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/auth/olvide").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/auth/restablecer").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/usuarios/registro").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/usuarios/activar").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/peliculas/buscar").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/generos").permitAll()
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
@@ -59,8 +56,8 @@ public class SecurityConfig {
         config.setAllowedOrigins(List.of("https://windship.shop"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
-        config.setExposedHeaders(List.of("Authorization")); // 🔑 si necesitas leer el token
-        config.setAllowCredentials(true); // debe ir con dominio explícito
+        config.setExposedHeaders(List.of("Authorization"));
+        config.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
